@@ -1,3 +1,16 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+env:
+  PROJECT_ID: notely-488609
+  REGION: us-central1
+  REPOSITORY: notely
+  IMAGE: notely
+  TAG: latest
+
 jobs:
   Deploy:
     runs-on: ubuntu-latest
