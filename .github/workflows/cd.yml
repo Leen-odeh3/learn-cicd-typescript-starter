@@ -24,10 +24,14 @@ jobs:
         run: npm run build
 
       - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: project-c9e7f4f4-3bcc-4e01-8f3
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Build and Push Docker image
         run: |
