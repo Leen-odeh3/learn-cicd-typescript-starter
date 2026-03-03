@@ -42,4 +42,5 @@ jobs:
         run: |
           gcloud config set project $PROJECT_ID
           gcloud builds submit \
-            --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/${IMAGE}:${TAG} .
+            --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/${IMAGE}:${TAG} . \
+            --quiet
