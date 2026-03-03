@@ -1,16 +1,3 @@
-name: CD
-
-on:
-  push:
-    branches: [main]
-
-env:
-  PROJECT_ID: notely-488609
-  REGION: us-central1
-  REPOSITORY: notely
-  IMAGE: notely
-  TAG: latest
-
 jobs:
   Deploy:
     runs-on: ubuntu-latest
@@ -44,3 +31,12 @@ jobs:
           gcloud builds submit \
             --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/${IMAGE}:${TAG} . \
             --quiet
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy notely \
+            --image ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/${IMAGE}:${TAG} \
+            --region $REGION \
+            --allow-unauthenticated \
+            --project $PROJECT_ID \
+            --max-instances=4
